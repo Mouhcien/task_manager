@@ -1,5 +1,6 @@
 from django.db import models
 
+
 #Service Class ==> Service Table
 class Service(models.Model):
     service     = models.CharField(max_length=50)
@@ -77,8 +78,4 @@ class Responsible(models.Model):
     start_date  = models.DateField(blank=True)
     end_date    = models.DateField(blank=True)
     observation = models.TextField(blank=True)
-    
-    
-
-    
     
