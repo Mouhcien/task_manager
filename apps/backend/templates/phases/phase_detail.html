@@ -1,0 +1,10 @@
+<h1> Project : {{object.project}}</h1>
+<h2> Phase : {{object.title}}</h2>
+<h3> {{object.description}}</h3>
+<h3><a href="{% url 'task-list' object.id %}" >Tasks</a></h3>
+<br>
+<h3><a href="{% url 'phase-list' object.project_id %}" >Phases</a></h3>
+<br>
+<a href="{% url 'project-detail' object.project_id %}">Detail projet </a>
+<br>
+<a href="{% url 'project-list' %}">Liste des projets </a>

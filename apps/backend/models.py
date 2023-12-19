@@ -9,8 +9,8 @@ class Service(models.Model):
     def __str__(self) -> str:
         return self.service
 
-#Entity_Types Class ==> Entity_Types Table
-class Entity_Types(models.Model):
+#Entity_Type Class ==> Entity_Type Table
+class Entity_Type(models.Model):
     type = models.CharField(max_length=50)
     
     def __str__(self) -> str:
@@ -21,7 +21,7 @@ class Entity(models.Model):
     entity      = models.CharField(max_length=50)
     descrition  = models.TextField(blank=True)
     service     = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='entities')
-    type        = models.ForeignKey(Entity_Types, on_delete=models.CASCADE, related_name='entities')
+    type        = models.ForeignKey(Entity_Type, on_delete=models.CASCADE, related_name='entities')
     
     def __str__(self) -> str:
         return self.entity
@@ -56,7 +56,7 @@ class Project(models.Model):
 class Phase(models.Model):
     title           = models.CharField(max_length=150)
     description     = models.TextField(blank=False)
-    project         = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project         = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='phases')
     
     def __str__(self) -> str:
         return self.title

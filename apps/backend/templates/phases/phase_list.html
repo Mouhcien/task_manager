@@ -1,0 +1,17 @@
+{% if error is False %}
+    <ul>
+        {% for phase in phases %}
+            <li>
+                <a href="{% url 'project-detail' phase.project_id %}">{{phase.project}}</a>
+                --
+                <a href="{% url 'phase-detail' phase.id %}">{{phase.title}}</a>
+                -- 
+                <a href="{% url 'phase-delete' phase.id %}">Supprimer</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h1 style="color: red;">{{message}}</h1>
+{% endif %}
+
+<a href="{% url 'phase-create' %}">Nouveau Phase </a>

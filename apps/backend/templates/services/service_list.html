@@ -1,0 +1,17 @@
+<h1>List all services </h1>
+
+<ul>
+
+    {% for service in object_list %}
+        <li>
+            <a href="{% url 'service-detail' service.id %}">{{service.service}}</a>
+            -- 
+            <a href="{% url 'service-delete' service.id %}">Supprimer</a>
+        </li>
+    {% endfor %}
+    
+</ul>
+
+<br>
+
+<a href="{% url 'service-create' %}">Nouveau Service</a>

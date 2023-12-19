@@ -1,0 +1,17 @@
+{% if error is False %}
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <a href="{% url 'phase-detail' task.phase_id %}">{{task.phase}}</a>
+                --
+                <a href="{% url 'task-detail' task.id %}">{{task.title}}</a>
+                -- 
+                <a href="{% url 'task-delete' task.id %}">Supprimer</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h1 style="color: red;">{{message}}</h1>
+{% endif %}
+
+<a href="{% url 'task-create' %}">Nouveau Task </a>

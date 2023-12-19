@@ -1,0 +1,9 @@
+<h1> Delete Phase </h1>
+
+<h2 style="color: red;"> Voulez-vous vraiment supprimer cette phase ?</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="OUI" style="color: red;" >
+    <a href="{% url 'phase-list' object.project_id %}" style="color: green;" >NON</a>
+</form>
