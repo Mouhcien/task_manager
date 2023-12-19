@@ -20,8 +20,8 @@ class Entity_Types(models.Model):
 class Entity(models.Model):
     entity      = models.CharField(max_length=50)
     descrition  = models.TextField(blank=True)
-    service     = models.ForeignKey(Service, on_delete=models.CASCADE)
-    type        = models.ForeignKey(Entity_Types, on_delete=models.CASCADE)
+    service     = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='entities')
+    type        = models.ForeignKey(Entity_Types, on_delete=models.CASCADE, related_name='entities')
     
     def __str__(self) -> str:
         return self.entity
@@ -38,8 +38,8 @@ class Employee(models.Model):
     ppr         = models.CharField(max_length=20)
     first_name  = models.CharField(max_length=100)
     last_name   = models.CharField(max_length=100)
-    entity      = models.ForeignKey(Entity, on_delete=models.CASCADE)
-    function    = models.ForeignKey(Function, on_delete=models.CASCADE)
+    entity      = models.ForeignKey(Entity, on_delete=models.CASCADE, related_name='employees')
+    function    = models.ForeignKey(Function, on_delete=models.CASCADE, related_name='employees')
     
     def __str__(self) -> str:
         return self.first_name + " " + self.last_name
@@ -65,7 +65,7 @@ class Phase(models.Model):
 class Task(models.Model):
     title           = models.CharField(max_length=100)
     description     = models.TextField(blank=False)
-    phase           = models.ForeignKey(Phase, on_delete=models.CASCADE)
+    phase           = models.ForeignKey(Phase, on_delete=models.CASCADE, related_name='tasks')
     
     def __str__(self) -> str:
         return self.title
@@ -73,8 +73,8 @@ class Task(models.Model):
     
 #Responsible Class ==> Responsible Table
 class Responsible(models.Model):
-    employee    = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    task        = models.ForeignKey(Task, on_delete=models.CASCADE)
+    employee    = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='reponsibles')
+    task        = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='reponsibles')
     start_date  = models.DateField(blank=True)
     end_date    = models.DateField(blank=True)
     observation = models.TextField(blank=True)
