@@ -1,4 +1,5 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("Welcome to Task Manager app")
+    context = {'message': 'This is the backend application for task manager'}
+    return render(request=request, template_name='index.html', context=context)
