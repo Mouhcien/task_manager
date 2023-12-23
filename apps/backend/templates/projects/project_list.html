@@ -1,17 +1,69 @@
-<h1>List all projects </h1>
+{% extends '_base.html' %}
 
-<ul>
+{% load static %}
 
-    {% for project in object_list %}
-        <li>
-            <a href="{% url 'project-detail' project.id %}">{{project.title}}</a>
-            -- 
-            <a href="{% url 'project-delete' project.id %}">Supprimer</a>
-        </li>
-    {% endfor %}
-    
-</ul>
+{% block content %}
+    <!-- Section-->
+    <section class="py-5">
+        <div class="text-center">
+            <a href="{% url 'project-create' %}" class="btn btn-outline-dark" >Nouveau Project</a>
+        </div>
+        <div class="container px-4 px-lg-5 mt-5">
+            <hr>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% if object_list|length == 0 %}
+                    <h3> There is no projects </h3>
+                {% else %}
+                    {% for project in object_list %}
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <!-- Project Situation -->
+                                {% if project.ongoing == True %}
+                                    <div class="badge bg-primary text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Started</div>
+                                {% else %}
+                                    <div class="badge bg-warning text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Not yet started</div>
+                                {% endif %}
+                                {% if project.ongoing == True and project.finished == True %}
+                                    <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Finished</div>
+                                {% endif %}
+                                
+                                <img class="card-img-top mt-2" src="{% static 'assets/logo.png' %}" alt="..." />
+                                
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <h5 class="fw-bolder">
+                                            <a class="text-decoration-none" href="{% url 'project-detail' project.id %}">{{project.title|title}}</a>
+                                        </h5>
+                                        <div class="d-flex justify-content-center small text-warning mb-2">
+                                            <div class="bi-star"></div>
+                                        </div>
+                                        {{project.phases_nbr}} Phases
+                                        <hr>
+                                        <div class="d-flex justify-content-center small text-info mb-2">
+                                            {% if project.ongoing == True %}
+                                                Created in : {{project.created_at}}
+                                                Started in : {{project.started_at}}
+                                            {% else %}
+                                                Created in : {{project.created_at}}
+                                            {% endif %}
 
-<br>
+                                            {% if project.ongoing == True and project.finished == True %}
+                                                finished in : {{project.finished_at}}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- Project actions-->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center"><a href="{% url 'project-detail' project.id %}" class="btn btn-outline-danger mt-auto" >Supprimer</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}    
+            </div>
+        </div>
+    </section>
+{% endblock %}
 
-<a href="{% url 'project-create' %}">Nouveau Projet</a>

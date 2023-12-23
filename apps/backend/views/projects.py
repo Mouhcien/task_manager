@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
+from django.shortcuts import render
 
 from ..models import Project
 
@@ -27,3 +28,13 @@ class ProjectDeleteView(DeleteView):
 class ProjectDetailView(DetailView):
     model           =   Project
     template_name   =   'projects/project_detail.html'
+    
+def ProjectOnGoingList(request):
+    projects = Project.objects.filter(ongoing=True)
+    context = {'object_list': projects}
+    return render(request, 'projects/project_list.html', context)
+
+def ProjectFinishedList(request):
+    projects = Project.objects.filter(finished=True)
+    context = {'object_list': projects}
+    return render(request, 'projects/project_list.html', context)
