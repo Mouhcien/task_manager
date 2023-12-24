@@ -1,9 +1,17 @@
-<h1> Delete Project </h1>
 
-<h2 style="color: red;"> Voulez-vous vraiment supprimer ce projet ?</h2>
+{% extends '_base.html' %}
 
-<form method="POST">
-    {% csrf_token %}
-    <input type="submit" value="OUI" style="color: red;" >
-    <a href="{% url 'project-list' %}" style="color: green;" >NON</a>
-</form>
+{% load static %}
+
+{% block content %}
+    <h1> Delete Project </h1>
+
+    <h2 style="color: red;"> Voulez-vous vraiment supprimer ce projet ?</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="OUI" style="color: red;" >
+        <a href="{% url 'project-list' %}" style="color: green;" >NON</a>
+    </form>
+
+{% endblock %}

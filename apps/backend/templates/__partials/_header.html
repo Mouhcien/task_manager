@@ -29,22 +29,52 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a href="{% url 'project-list' %}" class="dropdown-item" href="#!">All Projects</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="{% url 'project-ongoing' %}">On Going Projects</a></li>
-                                <li><a class="dropdown-item" href="{% url 'project-finished' %}">Finished Projects</a></li>
+                                <li><a class="dropdown-item text-danger" href="{% url 'project-not-started' %}">Projects Not Yet Started</a></li>
+                                <li><a class="dropdown-item text-primary" href="{% url 'project-ongoing' %}">On Going Projects</a></li>
+                                <li><a class="dropdown-item text-success" href="{% url 'project-finished' %}">Finished Projects</a></li>
                                 <li><a href="{% url 'project-create' %}" class="dropdown-item" href="#!">New Project</a></li>
                             </ul>
                         </li>
                     </ul>
                     <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-circle-fill me-1"></i>
-                            Projects
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
+                            {% if not tag %}
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <i class="bi-circle-fill me-1"></i>
+                                    Projects
+                                        <span class="badge bg-dark text-white ms-1 rounded-pill">{{ object_list|length }}</span>
+                                </button>
+                            {% endif %}
+                            {% if tag == 'not-started' %}
+                            <button class="btn btn-outline-danger" type="submit">
+                                <i class="bi-circle-fill me-1"></i>
+                                Projects
+                                    <span class="badge bg-danger text-white ms-1 rounded-pill">{{ object_list|length }}</span>
+                            </button>
+                            {% endif %}
+
+                            {% if tag == 'ongoing' %}
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="bi-circle-fill me-1"></i>
+                                Projects
+                                    <span class="badge bg-primary text-white ms-1 rounded-pill">{{ object_list|length }}</span>
+                            </button>
+                            {% endif %}
+
+                            {% if tag == 'finished' %}
+                            <button class="btn btn-outline-success" type="submit">
+                                <i class="bi-circle-fill me-1"></i>
+                                Projects
+                                    <span class="badge bg-success text-white ms-1 rounded-pill">{{ object_list|length }}</span>
+                            </button>
+                            {% endif %}
+                            
+                        
                     </form>
                 </div>
             </div>
         </nav>
+
+        {% if with_header == True %}
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -54,3 +84,4 @@
                 </div>
             </div>
         </header>
+        {% endif %}

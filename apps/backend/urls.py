@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from .views.projects import ProjectListView, ProjectUpdateView, ProjectCreateView, ProjectDeleteView, ProjectDetailView, ProjectFinishedList, ProjectOnGoingList
+from .views.projects import ProjectListView, ProjectUpdateView, ProjectCreateView, ProjectDeleteView, ProjectDetailView, ProjectFinishedList, ProjectOnGoingList, ProjectNotStartedList, StartProject, TerminateProject
 from .views.service import ServiceListView, ServiceUpdateView, ServiceCreateView, ServiceDeleteView, ServiceDetailView
 from .views.type import Entity_TypeListView, Entity_TypeUpdateView, Entity_TypeCreateView, Entity_TypeDeleteView, Entity_TypeDetailView
 from .views.phase import phase_list, PhaseCreateView, PhaseUpdateView, PhaseDetailView, PhaseDeleteView
@@ -14,10 +14,13 @@ urlpatterns = [
     path('projects/', view=ProjectListView.as_view(), name='project-list'),
     path('projects/ongoing/', view=ProjectOnGoingList, name='project-ongoing'),
     path('projects/finished/', view=ProjectFinishedList, name='project-finished'),
+    path('projects/not-started/', view=ProjectNotStartedList, name='project-not-started'),
     path('projects/create/', view=ProjectCreateView.as_view(), name='project-create'),
     path('projects/<int:pk>/update/', view=ProjectUpdateView.as_view(), name='project-update'),
     path('projects/<int:pk>/delete/', view=ProjectDeleteView.as_view(), name='project-delete'),
     path('projects/<int:pk>/detail/', view=ProjectDetailView.as_view(), name='project-detail'),
+    path('projects/<int:pk>/start/', view=StartProject, name='start-project'),
+    path('projects/<int:pk>/terminate/', view=TerminateProject, name='terminate-project'),
     #Phase routes
     path('phases/<int:project_id>/', view=phase_list, name='phase-list'),
     path('phases/create/', view=PhaseCreateView.as_view(), name='phase-create'),

@@ -1,8 +1,49 @@
+{% extends '_base.html' %}
 
-<h1> Project : {{object.title}}</h1>
-<h2> {{object.description}}</h2>
-<h3><a href="{% url 'phase-list' project.id %}" >Phases</a></h3>
+{% load static %}
 
-<br>
+{% block content %}
 
-<a href="{% url 'project-list' %}">Liste des projets </a>
+<section class="py-5">
+    <div class="text-center">
+        <h3 class="text-primary text-decoration-underline"> {{object.title|title}}</h3>
+        {% if message %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+        {% endif %}
+    </div>
+    <div class="container px-4 px-lg-5 mt-5">
+    
+        <div class="row col-12">
+            <table class="table flex-fill">
+                <tr>
+                    <td> <p class="fw-bolder">Project</p> </td>
+                    <td> {{object.title|title}} </td>
+                </tr>
+                <tr>
+                    <td> <p class="fw-bolder" >Description</p> </td>
+                    <td> {{object.description}} </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {% if object.ongoing == False %}
+                        <a href="{% url 'start-project' object.id %}" class="btn btn-outline-primary mt-auto btn-sm" >Start</a>
+                        {% endif %}
+                        <a href="{% url 'project-update' object.id %}" class="btn btn-outline-warning mt-auto btn-sm" >Edit</a>
+                        <a href="{% url 'project-delete' object.id %}" class="btn btn-outline-danger mt-auto btn-sm" >Delete</a>
+                        <a href="{% url 'phase-list' object.id %}" class="btn btn-outline-info mt-auto btn-sm" >Phases</a>
+                        {% if object.ongoing == True and object.finished == False %}
+                        <a href="{% url 'terminate-project' object.id %}" class="btn btn-outline-success mt-auto btn-sm" >Terminate</a>
+                        {% endif %}
+                    </td>
+                </h<>
+            </table>
+        </div>
+
+    <a href="{% url 'project-list' %}" class="float-end">Liste des projets </a>
+
+    </div>
+</section>
+
+{% endblock %}
