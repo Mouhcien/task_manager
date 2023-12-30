@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 
-from .models import Project
+from .models import Phase
 
-class ProjectForm(ModelForm):
+class PhaseForm(ModelForm):
     class Meta:
-        model = Project
+        model = Phase
         fields = ['title', 'description']
         
