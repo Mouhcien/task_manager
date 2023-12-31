@@ -3,11 +3,14 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.http import Http404
 
+from django.core.paginator import Paginator
+
 from datetime import datetime, timezone
 
 from ..models import Project
 
 class ProjectListView(ListView):
+    paginate_by     =   4
     model           =   Project
     template_name   =   'projects/project_list.html'
     
@@ -38,20 +41,29 @@ class ProjectDetailView(DetailView):
 
 
 def ProjectNotStartedList(request):
-    projects = Project.objects.filter(finished=False, ongoing=False)
-    context = {'object_list': projects, 'tag': 'not-started', 'with_header': True}
+    projects    = Project.objects.filter(finished=False, ongoing=False).order_by('created_at')
+    paginator   = Paginator(projects, 4) #Show 4 projects by row
+    page_number = request.GET.get("page")
+    page_obj    = paginator.get_page(page_number)
+    context     = {'object_list': page_obj, 'tag': 'not-started', 'page_obj': page_obj}
     return render(request, 'projects/project_list.html', context)
 
 
 def ProjectOnGoingList(request):
-    projects = Project.objects.filter(ongoing=True, finished=False)
-    context = {'object_list': projects, 'tag': 'ongoing', 'with_header': True}
+    projects    = Project.objects.filter(ongoing=True, finished=False).order_by('created_at')
+    paginator   = Paginator(projects, 4) #Show 4 project by row
+    page_number = request.GET.get("page")
+    page_obj    = paginator.get_page(page_number)
+    context     = {'object_list': page_obj, 'tag': 'ongoing', 'page_obj': page_obj}
     return render(request, 'projects/project_list.html', context)
 
 
 def ProjectFinishedList(request):
-    projects = Project.objects.filter(finished=True)
-    context = {'object_list': projects, 'tag': 'finished', 'with_header': True}
+    projects    = Project.objects.filter(finished=True).order_by('created_at')
+    paginator   = Paginator(projects, 4) #Show 4 project by row
+    page_number = request.GET.get("page")
+    page_obj    = paginator.get_page(page_number)
+    context     = {'object_list': page_obj, 'tag': 'finished', 'page_obj': page_obj}
     return render(request, 'projects/project_list.html', context)
 
 def StartProject(request, pk):

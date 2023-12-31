@@ -29,7 +29,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a href="{% url 'project-list' %}" class="dropdown-item" href="#!">All Projects</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item text-danger" href="{% url 'project-not-started' %}">Projects Not Yet Started</a></li>
+                                <li><a class="dropdown-item text-warning" href="{% url 'project-not-started' %}">Projects Not Yet Started</a></li>
                                 <li><a class="dropdown-item text-primary" href="{% url 'project-ongoing' %}">On Going Projects</a></li>
                                 <li><a class="dropdown-item text-success" href="{% url 'project-finished' %}">Finished Projects</a></li>
                                 <li><a href="{% url 'project-create' %}" class="dropdown-item" href="#!">New Project</a></li>
@@ -45,10 +45,10 @@
                                 </button>
                             {% endif %}
                             {% if tag == 'not-started' %}
-                            <button class="btn btn-outline-danger" type="submit">
+                            <button class="btn btn-outline-warning" type="submit">
                                 <i class="bi-circle-fill me-1"></i>
                                 Projects
-                                    <span class="badge bg-danger text-white ms-1 rounded-pill">{{ object_list|length }}</span>
+                                    <span class="badge bg-warning text-white ms-1 rounded-pill">{{ object_list|length }}</span>
                             </button>
                             {% endif %}
 
@@ -73,15 +73,3 @@
                 </div>
             </div>
         </nav>
-
-        {% if with_header == True %}
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-                </div>
-            </div>
-        </header>
-        {% endif %}
