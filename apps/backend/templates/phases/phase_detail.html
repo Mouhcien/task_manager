@@ -1,10 +1,63 @@
-<h1> Project : {{object.project}}</h1>
-<h2> Phase : {{object.title}}</h2>
-<h3> {{object.description}}</h3>
-<h3><a href="{% url 'task-list' object.id %}" >Tasks</a></h3>
-<br>
-<h3><a href="{% url 'phase-list' object.project_id %}" >Phases</a></h3>
-<br>
-<a href="{% url 'project-detail' object.project_id %}">Detail projet </a>
-<br>
-<a href="{% url 'project-list' %}">Liste des projets </a>
+{% extends '_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="text-center">
+        <h3 class="text-primary text-decoration-underline"> {{object.title|title}}</h3>
+        {% if message %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+        {% endif %}
+    </div>
+    <div class="container px-4 px-lg-5 mt-5">
+    
+        <div class="row col-12">
+            <div class="col-6">
+                <table class="table flex-fill">
+                    <tr>
+                        <td> <p class="fw-bolder">Project</p> </td>
+                        <td> {{object.project.title|title}} </td>
+                    </tr>
+                    <tr>
+                        <td> <p class="fw-bolder" >Description</p> </td>
+                        <td> {{object.description}} </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a href="{% url 'phase-update' object.id %}" class="btn btn-outline-warning mt-auto btn-sm" >Edit</a>
+                            <a href="{% url 'phase-delete' object.id %}" class="btn btn-outline-danger mt-auto btn-sm" >Delete</a>
+                            <a href="{% url 'task-list' object.id %}" class="btn btn-outline-info mt-auto btn-sm" >Tasks</a>
+                        </td>
+                    </h<>
+                </table>
+            </div>
+            <div class="col-6">
+                {% if error is False %}
+                    <table class="table flex-fill">
+                        <tr>
+                            <th> Task </th>
+                            <th> --- </th>
+                        </tr>
+                        {% for task in tasks %}
+                            <tr>
+                                <td> <a href="{% url 'task-detail' task.id %}">{{task.title}}</a> </td>
+                                <td> <a href="{% url 'task-delete' task.id %}">Supprimer</a> </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <h5 style="color: red;">{{message_task}}</h5>
+                {% endif %}
+
+                <a href="{% url 'task-create' %}">Nouveau Task </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

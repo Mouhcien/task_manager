@@ -3,10 +3,15 @@ from django import forms
 
 from .models import Phase
 
-class PhaseForm(forms.Form):
-    title       = forms.CharField(max_length=150, required=True)
-    description = forms.CharField(widget=forms.Textarea, required=True)
-    project_id  = forms.IntegerField(widget = forms.HiddenInput(), required=True)
+class PhaseForm(ModelForm):
+    class Meta:
+        model   = Phase
+        fields  = ['title', 'description', 'project']
+        widgets = {'project': forms.HiddenInput()}
+        
+    def __init__(self, *args, **kwargs):
+        super(PhaseForm, self).__init__(*args, **kwargs)
+        self.fields['project'].initial = kwargs.get('project')
     
         
         

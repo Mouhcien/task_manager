@@ -1,17 +1,52 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
 {% if error is False %}
-    <ul>
-        {% for phase in phases %}
-            <li>
-                <a href="{% url 'project-detail' phase.project_id %}">{{phase.project}}</a>
-                --
-                <a href="{% url 'phase-detail' phase.id %}">{{phase.title}}</a>
-                -- 
-                <a href="{% url 'phase-delete' phase.id %}">Supprimer</a>
-            </li>
-        {% endfor %}
-    </ul>
+<section class="py-5">
+    <div class="text-center">
+        <a href="{% url 'project-detail' project_id %}" class="btn btn-outline-dark" >{{project.title}}</a>
+    </div>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for phase in phases %}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder">
+                                    <a class="text-decoration-none" href="{% url 'phase-detail' phase.id %}">{{phase.title|title}}</a>
+                                </h5>
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star"></div>
+                                </div>
+                                Tasks
+                                <hr>
+                                <div class="d-flex justify-content-center small text-info mb-2">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Project actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a href="{% url 'phase-delete' phase.id %}" class="btn btn-outline-danger mt-auto" >Delete</a></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="text-center">
+        <a href="{% url 'phase-create' project_id %}" class="btn btn-outline-primary" >New Phase</a>
+    </div>
+</section>
 {% else %}
     <h1 style="color: red;">{{message}}</h1>
 {% endif %}
 
-<a href="{% url 'phase-create' project_id %}">Nouveau Phase </a>
+{% endblock %}
