@@ -41,23 +41,28 @@ def phase_list(request, project_id):
 
 #Create new phases for a specific project
 def create_new_phase(request, project_id):
-    #my_project  = Project.objects.get(project_id)
-    phaseForm   = PhaseForm()
-    
+    #my_project  = Project.objects.get(id=project_id)
     if request.method == 'POST':
+        phaseForm               = PhaseForm()
         phaseForm.title         = request.POST.get('title')
         phaseForm.description   = request.POST.get('description')
         phaseForm.project_id    = project_id
-        context = {
-            'form': phaseForm,
-        }
         
+        new_phase = phaseForm.cleaned_data
+        print(new_phase)
+            
         if phaseForm.is_valid():
-            phaseForm.save()
+            new_phase = phaseForm.cleaned_data
+            print(new_phase)
+            new_phase.save()
             return redirect('phase-list',project_id)
         else:
+            context = {
+                'form': phaseForm,
+            }
             return render(request=request, template_name='phases/phase_create.html', context=context)
     else:
+        phaseForm   = PhaseForm()
         context = {
             'form': phaseForm,
         }
