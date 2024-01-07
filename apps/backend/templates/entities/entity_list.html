@@ -1,0 +1,21 @@
+<h1>List all types entity </h1>
+
+<ul>
+
+    {% for type in object_list %}
+        <li>
+            <a href="{% url 'entity-type-detail' type.id %}">{{type.type}}</a>
+            -- 
+            <a href="{% url 'entity-type-delete' type.id %}">Supprimer</a>
+        </li>
+    {% endfor %}
+    
+</ul>
+
+<br>
+
+<a href="{% url 'entity-type-create' %}">Nouveau Entity</a>
+
+<br>
+
+<a href="{% url 'entity-type-list' %}">Entity Types</a>

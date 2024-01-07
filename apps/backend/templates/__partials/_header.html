@@ -35,6 +35,15 @@
                                 <li><a href="{% url 'project-create' %}" class="dropdown-item" href="#!">New Project</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">DRI</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a href="{% url 'project-list' %}" class="dropdown-item" href="#!">Employees</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{% url 'service-list' %}">Services</a></li>
+                                <li><a class="dropdown-item" href="{% url 'entity-list' %}">Entities</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <form class="d-flex">
                             {% if not tag %}

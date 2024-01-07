@@ -1,7 +1,23 @@
-<h1> Create New Project </h1>
+{% extends '_base.html' %}
 
-<form  method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Nouveau service">
-</form>
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+
+        <h3> Create New Project </h3>
+
+        <form  method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-outline-primary" type="submit" value="New Service">
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

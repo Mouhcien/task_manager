@@ -4,6 +4,7 @@ from django.urls import path
 from .views.projects import ProjectListView, ProjectUpdateView, ProjectCreateView, ProjectDeleteView, ProjectDetailView, ProjectFinishedList, ProjectOnGoingList, ProjectNotStartedList, StartProject, TerminateProject
 from .views.service import ServiceListView, ServiceUpdateView, ServiceCreateView, ServiceDeleteView, ServiceDetailView
 from .views.type import Entity_TypeListView, Entity_TypeUpdateView, Entity_TypeCreateView, Entity_TypeDeleteView, Entity_TypeDetailView
+from .views.entities import EntityListView, EntityUpdateView, EntityCreateView, EntityDeleteView, EntityDetailView
 from .views.phase import phase_list, PhaseUpdateView, PhaseDeleteView, create_new_phase, phase_detail
 from .views.tasks import task_list, TaskUpdateView, TaskDetailView, TaskDeleteView, create_new_task, startTask, terminateTask
 from .views.views import index
@@ -47,4 +48,10 @@ urlpatterns = [
     path('types/<int:pk>/update/', view=Entity_TypeUpdateView.as_view(), name='entity-type-update'),
     path('types/<int:pk>/delete/', view=Entity_TypeDeleteView.as_view(), name='entity-type-delete'),
     path('types/<int:pk>/detail/', view=Entity_TypeDetailView.as_view(), name='entity-type-detail'),
+    #entities routes
+    path('entities/', view=EntityListView.as_view(), name='entity-list'),
+    path('entities/create/', view=EntityCreateView.as_view(), name='entity-create'),
+    path('entities/<int:pk>/update/', view=EntityUpdateView.as_view(), name='entity-update'),
+    path('entities/<int:pk>/delete/', view=EntityDeleteView.as_view(), name='entity-delete'),
+    path('entities/<int:pk>/detail/', view=EntityDetailView.as_view(), name='entity-detail'),
 ]

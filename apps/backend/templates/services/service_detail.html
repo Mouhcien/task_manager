@@ -1,7 +1,23 @@
+{% extends '_base.html' %}
 
-<h1> Service : {{object.service}}</h1>
-<h2> {{object.description}}</h2>
+{% load crispy_forms_tags %}
 
-<br>
+{% load static %}
 
-<a href="{% url 'service-list' %}">Liste des services </a>
+{% block content %}
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+
+        <h1> Service : {{object.service}}</h1>
+        <h2> {{object.description}}</h2>
+
+        <br>
+
+        <a href="{% url 'service-list' %}">Liste des services </a>
+
+        
+    </div>
+</section>
+
+{% endblock %}
