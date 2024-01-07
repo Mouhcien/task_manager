@@ -1,17 +1,78 @@
-{% if error is False %}
-    <ul>
-        {% for task in tasks %}
-            <li>
-                <a href="{% url 'phase-detail' task.phase_id %}">{{task.phase}}</a>
-                --
-                <a href="{% url 'task-detail' task.id %}">{{task.title}}</a>
-                -- 
-                <a href="{% url 'task-delete' task.id %}">Supprimer</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <h1 style="color: red;">{{message}}</h1>
-{% endif %}
+{% extends '_base.html' %}
 
-<a href="{% url 'task-create' %}">Nouveau Task </a>
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h3> Tasks </h3>
+        <hr>
+
+        {% if error is False %}
+            <table class="table flex-fill table-responsive">
+                <tr>
+                    <th>Task </th>
+                    <th> Status </th>
+                    <th>Created At</th>
+                    <th> Started At </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for task in tasks %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'task-detail' task.id %}">{{task.title}}</a>
+                        </td>
+                        <td>
+                            {% if task.ongoing == True %}
+                                <div class="badge bg-primary text-white position-absolute" ">Started</div>
+                            {% else %}
+                                <div class="badge bg-warning text-white position-absolute" ">Not yet started</div>
+                            {% endif %}
+                            {% if task.ongoing == True and task.finished == True %}
+                                <div class="badge bg-success text-white position-absolute" ">Finished</div>
+                            {% endif %}
+                        </td>
+                        <td> {{task.created_at}} </td>
+                        <td>
+                            {% if task.ongoing == True %}
+                                {{task.started_at}}
+                            {% else %}
+                                ---------
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a title="Edit" class="btn btn-sm btn-outline-dark" href="{% url 'task-delete' task.id %}">
+                                <i class="bi bi-pencil-fill me-1"></i>
+                            </a>
+                            <a title="Delete" class="btn btn-sm btn-outline-danger" href="{% url 'task-delete' task.id %}">
+                                <i class="bi bi-trash-fill me-1"></i>
+                            </a>
+                        </td>
+                        <td>
+                            {% if task.ongoing == True %}
+                                <a title="Terminate" class="btn btn-sm btn-outline-success" href="{% url 'terminate-task' task.id %}">
+                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                </a>
+                            {% else %}
+                                <a title="Start" class="btn btn-sm btn-outline-primary" href="{% url 'start-task' task.id %}">
+                                    <i class=" bi bi-caret-right-square-fill me-1"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h1 style="color: red;">{{message}}</h1>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}
+

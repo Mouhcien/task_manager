@@ -74,6 +74,12 @@ class Task(models.Model):
     title           = models.CharField(max_length=100)
     description     = models.TextField(blank=False)
     phase           = models.ForeignKey(Phase, on_delete=models.CASCADE, related_name='tasks')
+    created_at      = models.DateTimeField(default=datetime.now)
+    updated_at      = models.DateTimeField(default=datetime.now)
+    ongoing         = models.BooleanField(default=False)
+    started_at      = models.DateTimeField(default=datetime.now)
+    finished        = models.BooleanField(default=False)
+    finished_at     = models.DateTimeField(default=datetime.now)
     
     def __str__(self) -> str:
         return self.title

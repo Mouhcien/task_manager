@@ -1,5 +1,21 @@
-<form method="POST">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="Ajouter Nouveau phase">
-</form>
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h3> Create New Task </h3>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                <input class="btn btn-outline-success" type="submit" value="New Task">
+            </form>
+        </div>
+    </section>
+    
+{% endblock %}

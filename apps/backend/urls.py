@@ -5,7 +5,7 @@ from .views.projects import ProjectListView, ProjectUpdateView, ProjectCreateVie
 from .views.service import ServiceListView, ServiceUpdateView, ServiceCreateView, ServiceDeleteView, ServiceDetailView
 from .views.type import Entity_TypeListView, Entity_TypeUpdateView, Entity_TypeCreateView, Entity_TypeDeleteView, Entity_TypeDetailView
 from .views.phase import phase_list, PhaseUpdateView, PhaseDeleteView, create_new_phase, phase_detail
-from .views.tasks import task_list, TaskCreateView, TaskUpdateView, TaskDetailView, TaskDeleteView
+from .views.tasks import task_list, TaskUpdateView, TaskDetailView, TaskDeleteView, create_new_task, startTask, terminateTask
 from .views.views import index
 
 urlpatterns = [
@@ -29,10 +29,12 @@ urlpatterns = [
     path('phases/<int:pk>/detail/', view=phase_detail, name='phase-detail'),
     #Task routes
     path('tasks/<int:phase_id>/', view=task_list, name='task-list'),
-    path('tasks/create/', view=TaskCreateView.as_view(), name='task-create'),
+    path('tasks/create/<int:phase_id>', view=create_new_task, name='task-create'),
     path('tasks/<int:pk>/update/', view=TaskUpdateView.as_view(), name='task-update'),
     path('tasks/<int:pk>/delete/', view=TaskDeleteView.as_view(), name='task-delete'),
     path('tasks/<int:pk>/detail/', view=TaskDetailView.as_view(), name='task-detail'),
+    path('tasks/<int:pk>/start/', view=startTask, name='start-task'),
+    path('tasks/<int:pk>/terminate/', view=terminateTask, name='terminate-task'),
     #Service routes
     path('services/', view=ServiceListView.as_view(), name='service-list'),
     path('services/create/', view=ServiceCreateView.as_view(), name='service-create'),
