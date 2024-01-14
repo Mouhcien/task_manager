@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from ..models import Entity_Type
 
 class Entity_TypeListView(ListView):
+    paginate_by     =   4
     model           =   Entity_Type
     template_name   =   'entity_types/entity_types_list.html'
     

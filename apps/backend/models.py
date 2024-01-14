@@ -20,7 +20,7 @@ class Entity_Type(models.Model):
 #Entity Class ==> Entity Table
 class Entity(models.Model):
     entity      = models.CharField(max_length=50)
-    descrition  = models.TextField(blank=True)
+    description = models.TextField(blank=True)
     service     = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='entities')
     type        = models.ForeignKey(Entity_Type, on_delete=models.CASCADE, related_name='entities')
     

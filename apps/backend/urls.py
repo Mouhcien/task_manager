@@ -4,9 +4,11 @@ from django.urls import path
 from .views.projects import ProjectListView, ProjectUpdateView, ProjectCreateView, ProjectDeleteView, ProjectDetailView, ProjectFinishedList, ProjectOnGoingList, ProjectNotStartedList, StartProject, TerminateProject
 from .views.service import ServiceListView, ServiceUpdateView, ServiceCreateView, ServiceDeleteView, ServiceDetailView
 from .views.type import Entity_TypeListView, Entity_TypeUpdateView, Entity_TypeCreateView, Entity_TypeDeleteView, Entity_TypeDetailView
-from .views.entities import EntityListView, EntityUpdateView, EntityCreateView, EntityDeleteView, EntityDetailView
+from .views.entities import enitities_list,create_new_entity, EntityListView, EntityUpdateView, EntityDeleteView, EntityDetailView
 from .views.phase import phase_list, PhaseUpdateView, PhaseDeleteView, create_new_phase, phase_detail
 from .views.tasks import task_list, TaskUpdateView, TaskDetailView, TaskDeleteView, create_new_task, startTask, terminateTask
+from .views.function import FunctionCreateView, FunctionDeleteView, FunctionDetailView, FunctionListView, FunctionUpdateView
+from .views.employee import EmployeeCreateView, EmployeeDeleteView, EmployeeDetailView, EmployeeListView, EmployeeUpdateView
 from .views.views import index
 
 urlpatterns = [
@@ -50,8 +52,21 @@ urlpatterns = [
     path('types/<int:pk>/detail/', view=Entity_TypeDetailView.as_view(), name='entity-type-detail'),
     #entities routes
     path('entities/', view=EntityListView.as_view(), name='entity-list'),
-    path('entities/create/', view=EntityCreateView.as_view(), name='entity-create'),
+    path('entities/service/<int:service_id>/', view=enitities_list, name='service-entities-list'),
+    path('entities/service/<int:service_id>/create/', view=create_new_entity, name='entity-create'),
     path('entities/<int:pk>/update/', view=EntityUpdateView.as_view(), name='entity-update'),
     path('entities/<int:pk>/delete/', view=EntityDeleteView.as_view(), name='entity-delete'),
     path('entities/<int:pk>/detail/', view=EntityDetailView.as_view(), name='entity-detail'),
+    #functions routes
+    path('functions/', view=FunctionListView.as_view(), name='function-list'),
+    path('functions/create/', view=FunctionCreateView.as_view(), name='function-create'),
+    path('functions/<int:pk>/update/', view=FunctionUpdateView.as_view(), name='function-update'),
+    path('functions/<int:pk>/delete/', view=FunctionDeleteView.as_view(), name='function-delete'),
+    path('functions/<int:pk>/detail/', view=FunctionDetailView.as_view(), name='function-detail'),
+    #employees routes
+    path('employees/', view=EmployeeListView.as_view(), name='employee-list'),
+    path('employees/create/', view=EmployeeCreateView.as_view(), name='employee-create'),
+    path('employees/<int:pk>/update/', view=EmployeeUpdateView.as_view(), name='employee-update'),
+    path('employees/<int:pk>/delete/', view=EmployeeDeleteView.as_view(), name='employee-delete'),
+    path('employees/<int:pk>/detail/', view=EmployeeDetailView.as_view(), name='employee-detail'),
 ]

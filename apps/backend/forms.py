@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
-from .models import Phase, Task
+from .models import Phase, Task, Entity
 
 class PhaseForm(ModelForm):
     class Meta:
@@ -23,6 +23,17 @@ class TaskForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
         self.fields['phase'].initial = kwargs.get('phase')
+        
+        
+class EntityForm(ModelForm):
+    class Meta:
+        model   = Entity
+        fields  = ['entity', 'description', 'type', 'service']
+        widgets = {'service': forms.HiddenInput()}
+        
+    def __init__(self, *args, **kwargs):
+        super(EntityForm, self).__init__(*args, **kwargs)
+        self.fields['service'].initial = kwargs.get('service')
     
         
         

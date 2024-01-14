@@ -1,17 +1,70 @@
-<h1>List all types entity </h1>
+{% extends '_base.html' %}
 
-<ul>
+{% load crispy_forms_tags %}
 
-    {% for type in object_list %}
-        <li>
-            <a href="{% url 'entity-type-detail' type.id %}">{{type.type}}</a>
-            -- 
-            <a href="{% url 'entity-type-delete' type.id %}">Supprimer</a>
-        </li>
-    {% endfor %}
-    
-</ul>
+{% load static %}
 
-<br>
+{% block content %}
 
-<a href="{% url 'entity-type-create' %}">Nouveau Entity</a>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h3> Our Entity Types </h3>
+            <hr>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1" class="btn btn-outline-primary btn-sm" >First</a>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary btn-sm">Previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary btn-sm" >Next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-primary btn-sm" >Last</a>
+                    {% endif %}
+                </span>
+            </div>
+            <hr>
+            <table class="table table-responsive flex-fill">
+                <tr>
+                    <th>Entity Type</th>
+                    <th></th>
+                </tr>
+                {% for type in object_list %}
+                    <tr>
+                        <td>
+                            <a href="">{{type.type}}</a>
+                        </td>
+                        <td>
+                            <a title="Edit" class="btn btn-sm btn-outline-dark" href="">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a title="Delete" class="btn btn-sm btn-outline-danger" href="">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                            <a title="Entities" class="btn btn-sm btn-outline-info" href="">
+                                <i class="bi bi-diagram-3-fill"></i>
+                            </a>
+                            <a title="Employees" class="btn btn-sm btn-outline-warning" href="">
+                                <i class="bi bi-people-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+            </table>
+
+            <br>
+
+            <a class="btn btn-sm btn-outline-primary" href="{% url 'entity-type-create' %}">
+                <i class="bi bi-plus-square-fill m-1"></i> 
+                New Entity Type
+            </a>
+
+        </div>
+    </section>
+
+{% endblock %}

@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from ..models import Service
 
 class ServiceListView(ListView):
+    paginate_by     =   4
     model           =   Service
     template_name   =   'services/service_list.html'
     
