@@ -8,7 +8,14 @@
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-        <h3> Tasks </h3>
+        <div class="row col-12">
+            <div class="col-6">
+                <h3> Tasks </h3>
+            </div>
+            <div class="col-6">
+                <a href="{% url 'task-create' phase_id %}" class="btn btn-outline-primary float-end"> <i class="bi bi-plus-square-fill"></i> New Task </a>
+            </div>
+        </div>
         <hr>
 
         {% if error is False %}
@@ -24,7 +31,7 @@
                 {% for task in tasks %}
                     <tr>
                         <td>
-                            <a href="{% url 'task-detail' task.id %}">{{task.title}}</a>
+                            <a href="{% url 'responsible-task-detail' task.id %}">{{task.title}}</a>
                         </td>
                         <td>
                             {% if task.ongoing == True %}
@@ -36,29 +43,32 @@
                                 <div class="badge bg-success text-white position-absolute" ">Finished</div>
                             {% endif %}
                         </td>
-                        <td> {{task.created_at}} </td>
+                        <td> {{task.created_at|date}} </td>
                         <td>
                             {% if task.ongoing == True %}
-                                {{task.started_at}}
+                                {{task.started_at|date}}
                             {% else %}
                                 ---------
                             {% endif %}
                         </td>
                         <td>
-                            <a title="Edit" class="btn btn-sm btn-outline-dark" href="{% url 'task-delete' task.id %}">
+                            <a class="btn btn-sm btn-outline-dark" title="Edit Task" href="{% url 'task-delete' task.id %}">
                                 <i class="bi bi-pencil-fill me-1"></i>
                             </a>
-                            <a title="Delete" class="btn btn-sm btn-outline-danger" href="{% url 'task-delete' task.id %}">
+                            <a class="btn btn-sm btn-outline-danger" title="Delete Task" href="{% url 'task-delete' task.id %}">
                                 <i class="bi bi-trash-fill me-1"></i>
                             </a>
                         </td>
                         <td>
+                            <a class="btn btn-sm btn-outline-info" title="Responsibles" href="{% url 'responsible-task-detail' task.id %}">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </a>
                             {% if task.ongoing == True %}
-                                <a title="Terminate" class="btn btn-sm btn-outline-success" href="{% url 'terminate-task' task.id %}">
+                                <a class="btn btn-sm btn-outline-success" title="Terminate Task" href="{% url 'terminate-task' task.id %}">
                                     <i class="bi bi-hand-thumbs-up-fill"></i>
                                 </a>
                             {% else %}
-                                <a title="Start" class="btn btn-sm btn-outline-primary" href="{% url 'start-task' task.id %}">
+                                <a class="btn btn-sm btn-outline-primary" title="Start Task" href="{% url 'start-task' task.id %}">
                                     <i class=" bi bi-caret-right-square-fill me-1"></i>
                                 </a>
                             {% endif %}

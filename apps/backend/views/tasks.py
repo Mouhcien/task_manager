@@ -30,12 +30,14 @@ def task_list(request, phase_id):
     if (tasks):
         context = {
             'error': False,
-            'tasks': tasks
+            'tasks': tasks,
+            'phase_id': phase_id
         }
     else:
         context = {
             'error': True,
-            'message': 'There is no tasks for this phase'
+            'message': 'There is no tasks for this phase',
+            'phase_id': phase_id
         }
     
     return render(request, 'tasks/task_list.html', context)

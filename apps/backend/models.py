@@ -88,8 +88,8 @@ class Task(models.Model):
 #Responsible Class ==> Responsible Table
 class Responsible(models.Model):
     employee    = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='reponsibles')
-    task        = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='reponsibles')
-    start_date  = models.DateField(blank=True)
-    end_date    = models.DateField(blank=True)
+    task        = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='responsibles')
+    start_date  = models.DateField(default=datetime.now)
+    end_date    = models.DateField(default=datetime.now)
     observation = models.TextField(blank=True)
     

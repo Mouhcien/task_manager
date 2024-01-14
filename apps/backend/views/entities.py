@@ -45,6 +45,7 @@ def enitities_list(request, service_id):
     }
     return render(request=request, template_name='entities/entity_list.html', context=context)
 
+
 def create_new_entity(request, service_id):
     service  = Service.objects.get(id=service_id)
     if request.method == 'POST':

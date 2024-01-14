@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
-from .models import Phase, Task, Entity
+from .models import Phase, Task, Entity, Responsible
 
 class PhaseForm(ModelForm):
     class Meta:
@@ -35,5 +35,14 @@ class EntityForm(ModelForm):
         super(EntityForm, self).__init__(*args, **kwargs)
         self.fields['service'].initial = kwargs.get('service')
     
+    
+class ResponsibleForm(ModelForm):
+    class Meta:
+        model   = Responsible
+        fields  = ['employee', 'task', 'observation']
+        widgets = {'task': forms.HiddenInput()}
         
+    def __init__(self, *args, **kwargs):
+        super(ResponsibleForm, self).__init__(*args, **kwargs)
+        self.fields['task'].initial = kwargs.get('task')
         

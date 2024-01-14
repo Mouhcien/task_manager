@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+
+        <h3> Affect Task to employee </h3>
+
+        <form  method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-outline-primary" type="submit" value="Affect">
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

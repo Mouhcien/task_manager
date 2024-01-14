@@ -1,0 +1,232 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+    <section class="py-5">
+        <div class="container px-1 px-lg-1 mt-2">
+            <div class="row col-12">
+                <div class="col-4">
+                    <h3> <i class="bi bi-info-circle-fill"></i> Information </h3>
+                </div>
+                <div class="col-8">
+                    <a class="btn btn-outline-info float-end me-2" title="Print">
+                        <i class="bi bi-printer-fill"></i>
+                    </a>
+                    <a class="btn btn-outline-dark float-end me-2" title="Send Email">
+                        <i class="bi bi-envelope-fill"></i>
+                    </a>
+                    <a class="btn btn-outline-danger float-end me-2" title="Share">
+                        <i class="bi bi-share-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <div class="row col-12">
+                <div class="col-4">
+                    <h3 class="text-decoration-underline">Project</h3>
+                    <table class="border w-100">
+                        <tr>
+                            <td class="fw-bold">Project : </td>
+                            <td>{{task.phase.project.title}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold" >Description : </td>
+                            <td>{{task.phase.project.description}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold" >Created At : </td>
+                            <td>{{task.phase.project.created_at|date}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold" >Updated At : </td>
+                            <td>{{task.phase.project.updated_at|date}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        {% if task.phase.project.ongoing %}
+                            <tr>
+                                <td class="fw-bold" >Status : </td>
+                                <td> <div class="badge bg-primary text-white position-absolute" ">Started</div> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold" >Sarted At : </td>
+                                <td>{{task.phase.project.started_at|date}}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="fw-bold" >Status : </td>
+                                <td> <div class="badge bg-warning text-white position-absolute" ">Not yet started</div> </td>
+                            </tr>
+                        {% endif %}
+                        {% if task.phase.project.finished %}
+                            <tr>
+                                <td class="fw-bold" >Status : </td>
+                                <td> <div class="badge bg-success text-white position-absolute" ">Finished</div> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold" >Terminated at : </td>
+                                <td>{{task.phase.project.finished_at|date}}</td>
+                            </tr>
+                        {% endif %}
+                        
+                    </table>
+                </div>
+                <div class="col-4">
+                    <h3 class="text-decoration-underline">Phase</h3>
+                    <table class="border w-100">
+                        <tr>
+                            <td class="fw-bold">Phase : </td>
+                            <td>
+                                <a href="{% url 'phase-detail' task.phase.id %}" >{{task.phase.title}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold" >Description : </td>
+                            <td>{{task.phase.phase.description}}</td>
+                        </tr>
+                    </table>
+
+                    <h3 class="text-decoration-underline">Task</h3>
+                    <table class="border w-100">
+                        <tr>
+                            <td class="fw-bold">Task : </td>
+                            <td>
+                                <a href="{% url 'task-detail' task.id %}">{{task.title}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold" >Description : </td>
+                            <td>{{task.description}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold" >Created At : </td>
+                            <td>{{task.created_at|date}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold" >Updated At : </td>
+                            <td>{{task.updated_at|date}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        {% if task.ongoing %}
+                            <tr>
+                                <td class="fw-bold" >Status : </td>
+                                <td> <div class="badge bg-primary text-white position-absolute" ">Started</div> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold" >Sarted At : </td>
+                                <td>{{task.started_at|date}}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="fw-bold" >Status : </td>
+                                <td> <div class="badge bg-warning text-white position-absolute" ">Not yet started</div> </td>
+                            </tr>
+                        {% endif %}
+                        {% if task.finished and task.ongoing %}
+                            <tr>
+                                <td class="fw-bold" >Status : </td>
+                                <td> <div class="badge bg-success text-white position-absolute" ">Finished</div> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold" >Terminated at : </td>
+                                <td>{{task.finished_at|date}}</td>
+                            </tr>
+                        {% endif %}
+                        
+                    </table>
+                </div>
+                <div class="col-4">
+                    <div class="row col-12">
+                        <div class="col-6">
+                            <h3 class="text-decoration-underline" > <i class="bi bi-person-lines-fill"></i> Employees </h3>
+                        </div>
+                        <div class="col-6">
+                            <a href="{% url 'responsible-create' task.id %}" title="Add new Employee to this task" class="btn btn-outline-primary btn-sm mb-3 ms-3 float-end"><i class="bi bi-person-plus-fill"></i></a>
+                        </div>
+                    </div>
+                    
+                    {% for responsible in responsibles %}
+                        <table class="border w-100">
+                            <tr>
+                                <td class="fw-bold">PPR</td>
+                                <td> {{responsible.employee.ppr}} </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Employee</td>
+                                <td> {{responsible.employee.first_name}} {{responsible.employee.last_name}}  </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Entity</td>
+                                <td> {{responsible.employee.entity.entity}} </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Function</td>
+                                <td> {{responsible.employee.function.function}} </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="{% url 'responsible-delete' responsible.id %}" title="Remove employee from this task" class="btn btn-outline-danger btn-sm mb-3 ms-3"><i class="bi bi-person-dash-fill"></i></a>
+                            
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

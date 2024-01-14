@@ -61,10 +61,10 @@
                             <a title="Delete" class="btn btn-sm btn-outline-danger" href="">
                                 <i class="bi bi-trash-fill"></i>
                             </a>
-                            <a title="Projects" class="btn btn-sm btn-outline-info" href="">
+                            <a title="Projects" class="btn btn-sm btn-outline-info" href="{% url 'employee-projects' employee.id 'projects-list' %}">
                                 <i class="bi bi-kanban-fill"></i>
                             </a>
-                            <a title="Tasks" class="btn btn-sm btn-outline-warning" href="">
+                            <a title="Tasks" class="btn btn-sm btn-outline-warning" href="{% url 'employee-tasks' employee.id 'tasks-list' %}">
                                 <i class="bi bi-list-task"></i>
                             </a>
                         </td>

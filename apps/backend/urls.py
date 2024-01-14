@@ -8,7 +8,8 @@ from .views.entities import enitities_list,create_new_entity, EntityListView, En
 from .views.phase import phase_list, PhaseUpdateView, PhaseDeleteView, create_new_phase, phase_detail
 from .views.tasks import task_list, TaskUpdateView, TaskDetailView, TaskDeleteView, create_new_task, startTask, terminateTask
 from .views.function import FunctionCreateView, FunctionDeleteView, FunctionDetailView, FunctionListView, FunctionUpdateView
-from .views.employee import EmployeeCreateView, EmployeeDeleteView, EmployeeDetailView, EmployeeListView, EmployeeUpdateView
+from .views.employee import employeeProjects, EmployeeCreateView, EmployeeDeleteView, EmployeeDetailView, EmployeeListView, EmployeeUpdateView
+from .views.responsible import responsible_task_detail, create_responsible_task, ResponsibleCreateView, ResponsibleDeleteView, ResponsibleDetailView, ResponsibleListView, ResponsibleUpdateView
 from .views.views import index
 
 urlpatterns = [
@@ -69,4 +70,12 @@ urlpatterns = [
     path('employees/<int:pk>/update/', view=EmployeeUpdateView.as_view(), name='employee-update'),
     path('employees/<int:pk>/delete/', view=EmployeeDeleteView.as_view(), name='employee-delete'),
     path('employees/<int:pk>/detail/', view=EmployeeDetailView.as_view(), name='employee-detail'),
+    path('employees/<int:employee_id>/projects/<str:tag>', view=employeeProjects, name='employee-projects'),
+    path('employees/<int:employee_id>/tasks/<str:tag>', view=employeeProjects, name='employee-tasks'),
+    #responsibles routes
+    path('responsibles/', view=ResponsibleListView.as_view(), name='responsible-list'),
+    path('responsibles/task/<int:task_id>/create/', view=create_responsible_task, name='responsible-create'),
+    path('responsibles/<int:pk>/update/', view=ResponsibleUpdateView.as_view(), name='responsible-update'),
+    path('responsibles/<int:pk>/delete/', view=ResponsibleDeleteView.as_view(), name='responsible-delete'),
+    path('responsibles/<int:task_id>/detail/', view=responsible_task_detail, name='responsible-task-detail'),
 ]

@@ -1,0 +1,98 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h3> [{{employee.first_name}} {{employee.last_name}}]'s Tasks </h3>
+            <hr>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1" class="btn btn-outline-primary btn-sm" >First</a>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary btn-sm">Previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary btn-sm" >Next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-primary btn-sm" >Last</a>
+                    {% endif %}
+                </span>
+            </div>
+            <hr>
+            <table class="table table-responsive flex-fill">
+                <tr>
+                    <th>Task</th>
+                    <th>Project</th>
+                    <th>Phase</th>
+                    <th>Description</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+                    <th>Started At</th>
+                    <th>Finished</th>
+                    <th>Finished At</th>
+                </tr>
+                {% for responsible in object_list %}
+                    <td>
+                        <a href="">{{responsible.task.title}}</a>
+                    </td>
+                    <td>
+                        <a href="">{{responsible.task.phase.project.title}}</a>
+                    </td>
+                    <td>
+                        <a href="">{{responsible.task.phase.title}}</a>
+                    </td>
+                    <td>
+                        <a href="">{{responsible.task.description}}</a>
+                    </td>
+                    <td>
+                        <a href="">{{responsible.task.created_at|date}}</a>
+                    </td>
+                        
+                    {% if responsible.task.phase.project.ongoing %}
+                        <td>
+                            <div class="badge bg-primary text-white position-absolute" ">Started</div>
+                        </td>
+                        <td>
+                            {{responsible.task.phase.project.started_at|date}}
+                        </td>
+                    {% else %}
+                        <td>
+                            <div class="badge bg-warning text-white position-absolute" ">Not yet started</div>
+                        </td>
+                        <td>
+                            -----
+                        </td>
+                    {% endif %}
+
+                    {% if responsible.task.phase.project.finished and responsible.task.phase.project.ongoing %}
+                        <td>
+                            <div class="badge bg-success text-white position-absolute" ">Finished</div>
+                        </td>
+                        <td>
+                            {{responsible.task.phase.project.finished|date}}
+                        </td>
+                    {% else %}
+                        <td>
+                            -----
+                        </td>
+                        <td>
+                            -----
+                        </td>
+                    {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <a href="{% url 'employee-list' %}" class="btn btn-outline-primary" >Employees List</a>
+        </div>
+    </section>
+
+{% endblock %}

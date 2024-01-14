@@ -44,8 +44,15 @@
                         </tr>
                         {% for task in tasks %}
                             <tr>
-                                <td> <a href="{% url 'task-detail' task.id %}">{{task.title}}</a> </td>
-                                <td> <a href="{% url 'task-delete' task.id %}">Supprimer</a> </td>
+                                <td> <a href="{% url 'responsible-task-detail' task.id %}">{{task.title}}</a> </td>
+                                <td>
+                                    <a href="{% url 'responsible-create' task.id %}" title="Affect to employee" class="btn btn-outline-info btn-sm">
+                                        <i class="bi bi-person-square"></i>
+                                    </a> 
+                                    <a href="{% url 'task-delete' task.id %}" title="Delete" class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a> 
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -53,7 +60,7 @@
                     <h5 style="color: red;">{{message_task}}</h5>
                 {% endif %}
 
-                <a href="{% url 'task-create' object.id %}">Nouveau Task </a>
+                <a href="{% url 'task-create' object.id %}" class="btn btn-outline-primary"> <i class="bi bi-plus-square-fill"></i> New Task </a>
             </div>
         </div>
 
