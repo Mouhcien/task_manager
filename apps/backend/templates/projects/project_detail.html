@@ -26,12 +26,30 @@
                     <td> {{object.description}} </td>
                 </tr>
                 <tr>
+                    <td> <p class="fw-bolder" >Created At</p> </td>
+                    <td> {{object.created_at}} </td>
+                </tr>
+                {% if object.ongoing %}
+                <tr>
+                    <td> <p class="fw-bolder" >Started At</p> </td>
+                    <td> {{object.started_at}} </td>
+                </tr>
+                {% endif %}
+                {% if object.finished %}
+                <tr>
+                    <td> <p class="fw-bolder" >Finished At</p> </td>
+                    <td> {{object.finished_at}} </td>
+                </tr>
+                {% endif %}
+                <tr>
                     <td colspan="2">
                         {% if object.ongoing == False %}
                         <a href="{% url 'start-project' object.id %}" class="btn btn-outline-primary mt-auto btn-sm" >Start</a>
                         {% endif %}
+                        {% if object.finisned %}
                         <a href="{% url 'project-update' object.id %}" class="btn btn-outline-warning mt-auto btn-sm" >Edit</a>
                         <a href="{% url 'project-delete' object.id %}" class="btn btn-outline-danger mt-auto btn-sm" >Delete</a>
+                        {% endif %}
                         <a href="{% url 'phase-list' object.id %}" class="btn btn-outline-info mt-auto btn-sm" >Phases</a>
                         {% if object.ongoing == True and object.finished == False %}
                         <a href="{% url 'terminate-project' object.id %}" class="btn btn-outline-success mt-auto btn-sm" >Terminate</a>
@@ -41,7 +59,7 @@
             </table>
         </div>
 
-    <a href="{% url 'project-list' %}" class="float-end">Liste des projets </a>
+    <a href="{% url 'project-list' %}" class="btn btn-outline-primary float-end">Liste des projets </a>
 
     </div>
 </section>
