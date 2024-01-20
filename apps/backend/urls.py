@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from .views.projects import ProjectListView, ProjectUpdateView, ProjectCreateView, ProjectDeleteView, ProjectDetailView, ProjectFinishedList, ProjectOnGoingList, ProjectNotStartedList, StartProject, TerminateProject
+from .views.projects import project_detail_employees, ProjectListView, ProjectUpdateView, ProjectCreateView, ProjectDeleteView, ProjectDetailView, ProjectFinishedList, ProjectOnGoingList, ProjectNotStartedList, StartProject, TerminateProject
 from .views.service import ServiceListView, ServiceUpdateView, ServiceCreateView, ServiceDeleteView, ServiceDetailView
 from .views.type import Entity_TypeListView, Entity_TypeUpdateView, Entity_TypeCreateView, Entity_TypeDeleteView, Entity_TypeDetailView
 from .views.entities import enitities_list,create_new_entity, EntityListView, EntityUpdateView, EntityDeleteView, EntityDetailView
@@ -25,6 +25,7 @@ urlpatterns = [
     path('projects/<int:pk>/detail/', view=ProjectDetailView.as_view(), name='project-detail'),
     path('projects/<int:pk>/start/', view=StartProject, name='start-project'),
     path('projects/<int:pk>/terminate/', view=TerminateProject, name='terminate-project'),
+    path('projects/<int:pk>/detail-complete/', view=project_detail_employees, name='detail-complete-project'),
     #Phase routes
     path('phases/<int:project_id>/', view=phase_list, name='phase-list'),
     path('phases/create/<int:project_id>', view=create_new_phase, name='phase-create'),

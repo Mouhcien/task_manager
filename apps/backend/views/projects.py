@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 
 from datetime import datetime, timezone
 
-from ..models import Project
+from ..models import Project, Phase, Task, Responsible
 
 class ProjectListView(ListView):
     paginate_by     =   4
@@ -18,14 +18,14 @@ class ProjectListView(ListView):
 class ProjectCreateView(CreateView):
     model           =   Project
     template_name   =   'projects/project_create.html'
-    fields          =   ['title', 'description']
+    fields          =   ['title', 'description', 'phases_nbr']
     success_url     =   reverse_lazy('project-list')
     
     
 class ProjectUpdateView(UpdateView):
     model           =   Project
     template_name   =   'projects/project_create.html'
-    fields          =   ['title', 'description']
+    fields          =   ['title', 'description', 'phases_nbr']
     success_url     =   reverse_lazy('project-list')
 
 
@@ -80,9 +80,9 @@ def StartProject(request, pk):
     return render(request, 'projects/project_detail.html', context)
 
 def TerminateProject(request, pk):
-    project     = Project.objects.get(id=pk)
+    project     =   Project.objects.get(id=pk)
     if project:
-        project.finished        = True
+        project.finished        =  True
         project.finished_at     =  datetime.now(timezone.utc)
         project.updated_at      =  datetime.now(timezone.utc)
         project.save()
@@ -91,3 +91,12 @@ def TerminateProject(request, pk):
         raise Http404("No such project")
     
     return render(request, 'projects/project_detail.html', context)
+
+def project_detail_employees(request, pk):
+    project =   Project.objects.get(id=pk)
+    phases  =   Phase.objects.filter(project_id=pk)
+    context = {
+        'project': project,
+        'phases': phases,
+    }
+    return render(request, 'projects/project_detail_employees.html', context)

@@ -57,24 +57,45 @@
                                         {{project.phases_nbr}} Phases
                                         <hr>
                                         <div class="d-flex justify-content-center small text-info mb-2">
-                                            {% if project.ongoing == True %}
-                                                Created in : {{project.created_at}}
-                                                Started in : {{project.started_at}}
-                                            {% else %}
-                                                Created in : {{project.created_at}}
-                                            {% endif %}
+                                            <table class="table-info">
+                                                <tr>
+                                                    <td class="fw-bold" > Created At : </td><td> {{project.created_at|date}} </td>
+                                                </tr>
+                                                    {% if project.ongoing == True %}
+                                                    <tr>
+                                                        <tr><td colspan="2"><hr></td></tr>
+                                                        <td class="fw-bold"> Started At : </td><td> {{project.started_at|date}} </td>
+                                                    </tr>
+                                                    {% endif %}
 
-                                            {% if project.ongoing == True and project.finished == True %}
-                                                finished in : {{project.finished_at}}
-                                            {% endif %}
+                                                    {% if project.ongoing == True and project.finished == True %}
+                                                    <tr>
+                                                        <tr><td colspan="2"><hr></td></tr>
+                                                        <td class="fw-bold" >Finished At : </td><td> {{project.finished_at|date}} </td>
+                                                    </tr>
+                                                    {% endif %}
+                                                </tr>
+                                            </table>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
+                                {% if not project.finished %}
                                 <!-- Project actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a href="{% url 'project-detail' project.id %}" class="btn btn-outline-danger mt-auto" >Delete</a></div>
+                                    <div class="text-center"><a href="{% url 'project-delete' project.id %}" class="btn btn-outline-danger mt-auto" >Delete</a></div>
                                 </div>
+                                {% else %}
+                                <!-- Project actions-->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a href="{% url 'detail-complete-project' project.id %}" class="btn btn-outline-success mt-auto" title="Finished Details" >
+                                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

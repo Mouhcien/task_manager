@@ -1,0 +1,139 @@
+{% extends '_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-1">
+    
+    <div class="container px-2 px-lg-2 mt-5">
+        <div class="row col-12">
+            <div class="col-4">
+                <fieldset>
+                    <legend class="text-decoration-underline" > Project Information </legend>
+                    <table>
+                        <tr>
+                            <td class="fw-bold"> Project </td>
+                            <td> {{project.title}} </td>
+                        </tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                        <tr>
+                            <td class="fw-bold"> Description </td>
+                            <td> {{project.description}} </td>
+                        </tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                        <tr>
+                            <td class="fw-bold"> Created At </td>
+                            <td> {{project.created_at}} </td>
+                        </tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                        <tr>
+                            <td class="fw-bold"> Updated At </td>
+                            <td> {{project.updated_at}} </td>
+                        </tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                        <tr>
+                            <td class="fw-bold"> Started At </td>
+                            <td> {{project.started_at}} </td>
+                        </tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                        <tr>
+                            <td class="fw-bold"> Finished At </td>
+                            <td> {{project.finished_at}} </td>
+                        </tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="col-8">
+                <fieldset>
+                    <legend class="text-decoration-underline">Project Phases </legend>
+                    {% for phase in phases %}
+                        <fieldset>
+                            <legend>{{ phase.title }}</legend>
+                            <table class="w-100">
+                                <tr>
+                                    <td class="fw-bold">Description</td>
+                                    <td> {{phase.description}} </td>
+                                </tr>
+                            </table>
+                            <fieldset>
+                                <legend>Tasks </legend>
+                                {% for task in phase.tasks.all %}
+                                <div class="row col-12">
+                                    <div class="col-6">
+                                        <table class="w-100">
+                                            <tr>
+                                                <td class="fw-bold"> Task </td>
+                                                <td>
+                                                    {{task.title}}
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2"><hr></td></tr>
+                                            <tr>
+                                                <td class="fw-bold"> Description </td>
+                                                <td> {{task.description}} </td>
+                                            </tr>
+                                            <tr><td colspan="2"><hr></td></tr>
+                                            <tr>
+                                                <td class="fw-bold"> Created At </td>
+                                                <td> {{task.created_at}} </td>
+                                            </tr>
+                                            <tr><td colspan="2"><hr></td></tr>
+                                            <tr>
+                                                <td class="fw-bold"> Updated At </td>
+                                                <td> {{task.updated_at}} </td>
+                                            </tr>
+                                            <tr><td colspan="2"><hr></td></tr>
+                                            <tr>
+                                                <td class="fw-bold"> Started At </td>
+                                                <td> {{task.started_at}} </td>
+                                            </tr>
+                                            <tr><td colspan="2"><hr></td></tr>
+                                            <tr>
+                                                <td class="fw-bold"> Finished At </td>
+                                                <td> {{task.finished_at}} </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        {% for responsible in task.responsibles.all %}
+                                        <fieldset>
+                                            <legend> {{responsible.employee.first_name}} {{responsible.employee.last_name}}</legend>
+                                            <table class="w-100">
+                                                <tr>
+                                                    <td class="fw-bold" > Entity </td>
+                                                    <td>  {{responsible.employee.entity.entity}} </td>
+                                                </tr>
+                                                <tr><td colspan="2"><hr></td></tr>
+                                                <tr>
+                                                    <td class="fw-bold" > Type </td>
+                                                    <td>  {{responsible.employee.entity.type.type}} </td>
+                                                </tr>
+                                                <tr><td colspan="2"><hr></td></tr>
+                                                <tr>
+                                                    <td class="fw-bold" > Service </td>
+                                                    <td>  {{responsible.employee.entity.service.service}} </td>
+                                                </tr>
+                                                <tr><td colspan="2"><hr></td></tr>
+                                                <tr>
+                                                    <td class="fw-bold" > Function </td>
+                                                    <td> {{responsible.employee.function.function}} </td>
+                                                </tr>
+                                                <tr><td colspan="2"><hr></td></tr>
+                                            </table>
+                                        </fieldset>
+                                        {% endfor %}
+                                    </div>
+                                    <hr>
+                                </div>
+                                {% endfor %}
+                            </fieldset>
+                        </fieldset>
+                    {% endfor %}
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
